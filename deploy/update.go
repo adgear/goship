@@ -63,8 +63,15 @@ func (u *Update) Start() (err error) {
 		return
 	}
 
+	publish := func(host string) {
+		_, err := http.Post("http://"+host+"/app/instance", "application/json", body)
+		if err != nil {
+			log.Println(err)
+		}
+	}
+
 	for _, item := range u.Servers {
-		go http.Post("http://"+item+"/app/instance", "application/json", body)
+		go publish(item)
 	}
 
 	return
