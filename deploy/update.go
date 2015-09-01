@@ -20,8 +20,15 @@ import (
 var Version string
 
 func init() {
-	if Version != "" {
-		log.Println(Version)
+	if Version == "" {
+		return
+	}
+
+	buf := bytes.Buffer{}
+	if err := json.Indent(&buf, []byte(Version), "", "  "); err != nil {
+		log.Println("version:", err)
+	} else {
+		log.Println("version:", buf.String())
 	}
 }
 

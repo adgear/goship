@@ -145,7 +145,7 @@ func (b *Builder) compile() (err error) {
 		return
 	}
 
-	ld := fmt.Sprintf("-X github.com/datacratic/goship/deploy.Version '%q'", ver)
+	ld := fmt.Sprintf("-X github.com/datacratic/goship/deploy.Version '%s'", ver)
 	log.Println("go install", ld)
 
 	// invoke the compiler
