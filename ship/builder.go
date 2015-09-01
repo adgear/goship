@@ -145,11 +145,12 @@ func (b *Builder) compile() (err error) {
 		return
 	}
 
-	ld := fmt.Sprintf("\"-X github.com/datacratic/goship.Version %q\"", ver)
+	ld := fmt.Sprintf("-X github.com/datacratic/goship/deploy.Version '%q'", ver)
+	log.Println("go install", ld)
 
 	// invoke the compiler
 	b.logger.Println(strings.Join(env, " "), "go install", b.Build.Name)
-	cmd := exec.Command("go", "install", b.Build.Name, "-ldflags", ld)
+	cmd := exec.Command("go", "install", "-ldflags", ld, b.Build.Name)
 	cmd.Dir = b.Workspace
 	cmd.Env = env
 	cmd.Stdout = b.output
